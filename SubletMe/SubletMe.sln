@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubletMe.Core", "SubletMe.Core\SubletMe.Core.csproj", "{2E31CFB3-EB16-42BF-8D34-043F65D2E4D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubletMe.Services", "SubletMe.Services\SubletMe.Services.csproj", "{5457EC85-2CCF-494E-AB7A-8BF4042D3FDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubletMe.DataAccess.SQL", "SubletMe.DataAccess.SQL\SubletMe.DataAccess.SQL.csproj", "{6F982A0D-09F4-4733-AA21-C040573F63EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubletMe.DataAccess.InMemory", "SubletMe.DataAccess.InMemory\SubletMe.DataAccess.InMemory.csproj", "{3D932F1C-8581-44E6-8CC0-F4DFA517DF4E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubletMe.WebUI", "SubletMe.WebUI\SubletMe.WebUI.csproj", "{D3C1B8EC-ACDC-4756-931F-E35E28C14FD7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubletMe.WebUI.Tests", "SubletMe.WebUI.Tests\SubletMe.WebUI.Tests.csproj", "{96AFDCD2-26C9-48F1-A942-20702DF6C628}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E31CFB3-EB16-42BF-8D34-043F65D2E4D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E31CFB3-EB16-42BF-8D34-043F65D2E4D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E31CFB3-EB16-42BF-8D34-043F65D2E4D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E31CFB3-EB16-42BF-8D34-043F65D2E4D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5457EC85-2CCF-494E-AB7A-8BF4042D3FDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5457EC85-2CCF-494E-AB7A-8BF4042D3FDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5457EC85-2CCF-494E-AB7A-8BF4042D3FDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5457EC85-2CCF-494E-AB7A-8BF4042D3FDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F982A0D-09F4-4733-AA21-C040573F63EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F982A0D-09F4-4733-AA21-C040573F63EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F982A0D-09F4-4733-AA21-C040573F63EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F982A0D-09F4-4733-AA21-C040573F63EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D932F1C-8581-44E6-8CC0-F4DFA517DF4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D932F1C-8581-44E6-8CC0-F4DFA517DF4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D932F1C-8581-44E6-8CC0-F4DFA517DF4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D932F1C-8581-44E6-8CC0-F4DFA517DF4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3C1B8EC-ACDC-4756-931F-E35E28C14FD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3C1B8EC-ACDC-4756-931F-E35E28C14FD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3C1B8EC-ACDC-4756-931F-E35E28C14FD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3C1B8EC-ACDC-4756-931F-E35E28C14FD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96AFDCD2-26C9-48F1-A942-20702DF6C628}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96AFDCD2-26C9-48F1-A942-20702DF6C628}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96AFDCD2-26C9-48F1-A942-20702DF6C628}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96AFDCD2-26C9-48F1-A942-20702DF6C628}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {28846E0D-22F7-4FFE-A31C-7665F86AD878}
+	EndGlobalSection
+EndGlobal
