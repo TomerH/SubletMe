@@ -8,9 +8,17 @@ namespace SubletMe.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        //IRepository<Apartme> 
+        public ActionResult Index(string City)
         {
-            return View();
+            if (City != null)
+            {
+                return View();
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult About()
