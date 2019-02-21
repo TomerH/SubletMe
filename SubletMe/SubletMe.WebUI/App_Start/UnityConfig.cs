@@ -2,7 +2,6 @@ using SubletMe.Core.Contracts;
 using SubletMe.Core.Models;
 using SubletMe.DataAccess.SQL;
 using System;
-
 using Unity;
 
 namespace SubletMe.WebUI
