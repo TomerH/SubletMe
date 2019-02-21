@@ -1,6 +1,6 @@
 ﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    direction:rtl;
+    font-family: 'Rubik';
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -22,3 +22,52 @@ select,
 textarea {
     max-width: 280px;
 }*/
+
+/*.navbar-changes {
+    height: 50px;
+}*/
+
+.navbar {
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+.navbar-changes {
+    min-height: 80px;
+    background-color: #51b3eb;
+    border: 0;
+}
+
+.navbar-changes .navbar-brand {
+    padding-right: 0;
+}
+
+.navbar-changes .navbar-brand, .navbar-changes .navbar-brand:hover, .navbar-changes .navbar-nav > li > a {
+    color: #fff;
+}
+
+.nav > li > a:hover {
+    background-color: transparent;
+}
+
+.navbar-changes .navbar-nav > li > a:hover {
+    color: #fff;
+}
+
+.navbar-nav > li {
+    float: right !important;
+}
+
+.navbar-toggle {
+    float: left;
+    margin-right: 0;
+    margin-left: 15px;
+}
+
+.navbar-brand {
+    float: right;
+}
+
+.col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+    float: right;
+}

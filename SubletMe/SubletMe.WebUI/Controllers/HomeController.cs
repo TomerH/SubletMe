@@ -9,16 +9,21 @@ namespace SubletMe.WebUI.Controllers
     public class HomeController : Controller
     {
         //IRepository<Apartme> 
-        public ActionResult Index(string City)
+        //public ActionResult Index(string City)
+        //{
+        //    if (City != null)
+        //    {
+        //        return View();
+        //    }
+        //    else
+        //    {
+        //        return View();
+        //    }
+        //}
+
+        public ActionResult Index()
         {
-            if (City != null)
-            {
-                return View();
-            }
-            else
-            {
-                return View();
-            }
+            return View();
         }
 
         public ActionResult About()

@@ -2,9 +2,9 @@
     ViewBag.Title = "Home Page";
 }
 
-<h2>Index</h2>
+<h2 class="text-center">ברוכים הבאים</h2>
 
-@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+@*@using (Html.BeginForm("Index", "Home", FormMethod.Get))
 {
     <div class="row">
         <div class="form-group">
@@ -17,6 +17,15 @@
             </div>
         </div>
     </div>
-}
+}*@
+
+<div class="row">
+    <div class="col-md-6">
+        @Html.ActionLink("הוסף דירה/חדר להשכרה", "Index", "Add", new { area = "" }, new { @class = "addBox" })
+    </div>
+    <div class="col-md-6">
+        @Html.ActionLink("הוסף דרישה לדירה/חדר", "Index", "Request", new { area = "" }, new { @class = "addBox" })
+    </div>
+</div>
 
 <div class="clearfix"></div>

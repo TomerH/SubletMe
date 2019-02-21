@@ -46,6 +46,7 @@ namespace SubletMe.WebUI
             // container.RegisterType<IProductRepository, ProductRepository>();
             container.RegisterType<IRepository<Apartment>, SQLRepository<Apartment>>();
             container.RegisterType<IRepository<Room>, SQLRepository<Room>>();
+            container.RegisterType<IRepository<Request>, SQLRepository<Request>>();
         }
     }
 }

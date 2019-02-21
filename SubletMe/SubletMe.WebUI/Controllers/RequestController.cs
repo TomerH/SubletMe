@@ -9,17 +9,16 @@ using System.Web.Mvc;
 
 namespace SubletMe.WebUI.Controllers
 {
-    public class AddController : Controller
+    public class RequestController : Controller
     {
-        IRepository<Apartment> apartments;
-        IRepository<Room> rooms;
+        IRepository<Request> requests;
 
-        public AddController(IRepository<Apartment> apartments, IRepository<Room> rooms)
+        public RequestController(IRepository<Request> requests)
         {
-            this.apartments = apartments;
-            this.rooms = rooms;
+            this.requests = requests;
         }
 
+        // GET: Request
         public ActionResult Index()
         {
             return View();
@@ -28,61 +27,64 @@ namespace SubletMe.WebUI.Controllers
         [HttpPost]
         public ActionResult Index(string Type)
         {
-            if(Type == "Apartment") {
-                return RedirectToAction("AddApartment");
+            if (Type == "Apartment")
+            {
+                return RedirectToAction("RequestApartment");
             }
             else
             {
-                return RedirectToAction("AddRoom");
+                return RedirectToAction("RequestRoom");
             }
         }
 
-        public ActionResult AddApartment()
+        public ActionResult RequestApartment()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult AddApartment(Apartment Apartment)
+        public ActionResult RequestApartment(Request Request)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return View(Apartment);
+                return View(Request);
             }
             else
             {
                 if (User.Identity.IsAuthenticated)
                 {
                     var Id = User.Identity.GetUserId();
-                    Apartment.UserId = Id;
+                    Request.UserId = Id;
                 }
-                apartments.Insert(Apartment);
-                apartments.Commit();
+                Request.Kind = "Apartment";
+                requests.Insert(Request);
+                requests.Commit();
                 return RedirectToAction("Index");
             }
         }
 
-        public ActionResult AddRoom()
+        public ActionResult RequestRoom()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult AddRoom(Room Room)
+        public ActionResult RequestRoom(Request Request)
         {
             if (!ModelState.IsValid)
             {
-                return View(Room);
+                return View(Request);
             }
             else
             {
                 if (User.Identity.IsAuthenticated)
                 {
                     var Id = User.Identity.GetUserId();
-                    Room.UserId = Id;
+                    Request.UserId = Id;
                 }
-                rooms.Insert(Room);
-                rooms.Commit();
+                Request.Kind = "Room";
+                requests.Insert(Request);
+                requests.Commit();
                 return RedirectToAction("Index");
             }
         }

@@ -194,6 +194,7 @@
     <Compile Include="Controllers\AddController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -262,6 +263,9 @@
     <Content Include="Views\Add\Index.cshtml" />
     <Content Include="Views\Add\AddApartment.cshtml" />
     <Content Include="Views\Add\AddRoom.cshtml" />
+    <Content Include="Views\Request\Index.cshtml" />
+    <Content Include="Views\Request\RequestApartment.cshtml" />
+    <Content Include="Views\Request\RequestRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

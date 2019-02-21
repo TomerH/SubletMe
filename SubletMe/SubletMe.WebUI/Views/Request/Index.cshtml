@@ -3,9 +3,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2 class="text-center">מה תרצה לפרסם?</h2>
+<h2 class="text-center">מה תרצה לבקש?</h2>
 
-@using (Html.BeginForm("Index", "Add", FormMethod.Post)) {
+@using (Html.BeginForm("Index", "Request", FormMethod.Post))
+{
     <div class="row">
         <div class="form-group">
             <div class="col-md-8">
