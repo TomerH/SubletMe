@@ -5,46 +5,15 @@
 }
 
 <style>
-    li:hover {
-        background: #fff;
-    }
-
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover,
-    input:-webkit-autofill:focus,
-    input:-webkit-autofill:active {
-        -webkit-box-shadow: 0 0 0 30px white inset !important;
-    }
-
-    /*Change text in autofill textbox*/
-    input:-webkit-autofill {
-        -webkit-text-fill-color: yellow !important;
-    }
-
-    /*.ui-menu-item {
-        margin: 0;
-        padding: 0;
-        zoom: 1;
-        float: left;
-        clear: left;
-        width: 100%;
-    }*/
-
     .ui-autocomplete li.ui-menu-item, .ui-autocomplete li.ui-menu-item:hover {
         background: #fff;
     }
-
-    /*.ui-menu-item a {
-        text-decoration: none;
-        display: block;
-        padding: .2em .4em;
-        line-height: 1.5;
-        zoom: 1;
-    }*/
 </style>
 
 <script type="text/javascript">
     $(document).ready(function () {
+        $(".noResult").hide();
+
         $("#City").autocomplete({
             source: function (request, response) {
                 $.ajax({
@@ -54,15 +23,18 @@
                     data: { cityPrefix: request.term },
                     success: function (data) {
                         if (!data.length) {
-                            var result = [
-                                {
-                                    label: "לא נמצו תוצאות",
-                                    value: ""
-                                }
-                            ];
-                            response(result);
+                            //var result = [
+                            //    {
+                            //        label: "לא נמצו תוצאות",
+                            //        value: ""
+                            //    }
+                            //];
+                            //response(result);
+                            $(".cityNoResult").show();
+                            response();
                         } else {
                             response($.map(data, function (item) {
+                                $(".cityNoResult").hide();
                                 return { label: item.Name_He, value: item.Name_He };
                             }))
                         }
@@ -83,10 +55,6 @@
                     $("li").css("pointer-events", "none");
                 }
             }
-        });
-
-        $('#City').bind('input', function () {
-            $("#Street").prop("disabled", true);
         });
 
         $("#Street").autocomplete({
@@ -132,6 +100,7 @@
 
         $('#City').bind('input', function () {
             $("#Street").prop("disabled", true);
+            $("#Street").val("");
         });
     })
 </script>
@@ -158,6 +127,14 @@
         <div class="form-group">
             <div class="col-md-12">
                 @Html.EditorFor(model => model.Cities.Name_He, "CityName", "City", new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+    </div>
+
+    <div class="row noResult cityNoResult">
+        <div class="form-group">
+            <div class="col-md-12">
+                <p> לא נמצאו תוצאות</p>
             </div>
         </div>
     </div>
