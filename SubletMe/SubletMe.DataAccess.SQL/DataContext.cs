@@ -18,5 +18,7 @@ namespace SubletMe.DataAccess.SQL
         public DbSet<Apartment> Apartments { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Request> Requests { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Street> Streets { get; set; }
     }
 }

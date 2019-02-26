@@ -1,30 +1,97 @@
-﻿@{
+﻿@model SubletMe.Core.ViewModels.AddressViewModel
+
+@{
     ViewBag.Title = "Home Page";
 }
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#City").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: "/Home/Index",
+                    type: "POST",
+                    dataType: "json",
+                    data: { cityPrefix: request.term },
+                    success: function (data) {
+                        if (!data.length) {
+                            var result = [
+                                {
+                                    label: "לא נמצו תוצאות",
+                                    value: response.term
+                                }
+                            ];
+                            response(result);
+                        } else {
+                            response($.map(data, function (item) {
+                                return { label: item.Name_He, value: item.Name_He };
+                            }))
+                        }
+                    }, error: function () {
+                        alert('something went wrong !');
+                    }
+                })
+            },
+            select: function (event, ui) {
+                $("#Street").prop("disabled", false);
+            }
+        });
+
+        //$("#City").change(function () {
+        //    $("#Street").prop("disabled", true);
+        //});
+    })
+</script>
+
+
 <h2 class="text-center">ברוכים הבאים</h2>
 
-@*@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+@if (User.Identity.IsAuthenticated)
 {
     <div class="row">
-        <div class="form-group">
-            <div class="col-md-10">
-                <input type="text" name="City" class="form-control" placeholder="filter by city" />
-            </div>
-
-            <div class="col-md-2">
-                <input type="submit" value="Filter" class="btn btn-default" style="width: 100%" />
-            </div>
+        <div class="col-md-6">
+            @Html.ActionLink("הוסף דירה/חדר להשכרה", "Index", "Add", new { area = "" }, new { @class = "addBox" })
+        </div>
+        <div class="col-md-6">
+            @Html.ActionLink("הוסף דרישה לדירה/חדר", "Index", "Request", new { area = "" }, new { @class = "addBox" })
         </div>
     </div>
-}*@
+}
+
+@*<div class="row">
+    <div class="col-md-12">
+        @foreach (var item in ViewBag.Cities)
+        {
+            <p>@item.Name_He</p>
+        }
+    </div>
+</div>*@
 
 <div class="row">
-    <div class="col-md-6">
-        @Html.ActionLink("הוסף דירה/חדר להשכרה", "Index", "Add", new { area = "" }, new { @class = "addBox" })
-    </div>
-    <div class="col-md-6">
-        @Html.ActionLink("הוסף דרישה לדירה/חדר", "Index", "Request", new { area = "" }, new { @class = "addBox" })
+    <div class="col-md-12">
+        @using (Html.BeginForm("Index", "Home", FormMethod.Get))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Cities.Name_He, "CityName", "City", new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+
+                <div class="col-md-2">
+                    <input type="submit" value="Filter" class="btn btn-default" style="width: 100%" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Streets.Name_He, "StreetName", "Street", new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                </div>
+
+                <div class="col-md-2">
+                    <input type="submit" value="Filter" class="btn btn-default" style="width: 100%" />
+                </div>
+            </div>
+        }
     </div>
 </div>
 
