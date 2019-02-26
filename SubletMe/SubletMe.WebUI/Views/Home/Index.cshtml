@@ -15,10 +15,11 @@
                     data: { cityPrefix: request.term },
                     success: function (data) {
                         if (!data.length) {
+                            //$('body').off('click', 'li');
                             var result = [
                                 {
                                     label: "לא נמצו תוצאות",
-                                    value: response.term
+                                    value: ""
                                 }
                             ];
                             response(result);
@@ -37,9 +38,9 @@
             }
         });
 
-        //$("#City").change(function () {
-        //    $("#Street").prop("disabled", true);
-        //});
+        $('#City').bind('input', function () {
+            $("#Street").prop("disabled", true);
+        });
     })
 </script>
 
@@ -57,15 +58,6 @@
         </div>
     </div>
 }
-
-@*<div class="row">
-    <div class="col-md-12">
-        @foreach (var item in ViewBag.Cities)
-        {
-            <p>@item.Name_He</p>
-        }
-    </div>
-</div>*@
 
 <div class="row">
     <div class="col-md-12">
