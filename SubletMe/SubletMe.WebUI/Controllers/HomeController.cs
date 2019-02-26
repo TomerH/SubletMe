@@ -29,37 +29,24 @@ namespace SubletMe.WebUI.Controllers
         [HttpPost]
         public JsonResult Index(string cityPrefix, string streetPrefix = null)
         {
-            dynamic Cities;
+            dynamic AdreessType;
 
-            //cityIsCorrect = false;
+            if (streetPrefix != null)
+            {
+                string CityChosen = cityPrefix;
+                AdreessType = (from C in streets.Collection()
+                          where C.Name_He.ToLower().StartsWith(streetPrefix.ToLower())
+                          && C.CityName.Equals(CityChosen)
+                          select new { C.Name_He });
+            }
+            else
+            {
+                AdreessType = (from C in cities.Collection()
+                          where C.Name_He.ToLower().StartsWith(cityPrefix.ToLower())
+                          select new { C.Name_He });
+            }
 
-            //if(cityIsCorrect)
-            //{
-            //    ViewBag.streetFilter = true;
-            //}
-            //else
-            //{
-            //    ViewBag.streetFilter = false;
-            //}
-
-            //if (streetPrefix != null)
-            //{
-            //    Cities = (from C in streets.Collection()
-            //              where C.Name_He.ToLower().StartsWith(streetPrefix.ToLower())
-            //              select new { C.Name_He });
-            //}
-            //else
-            //{
-            //    Cities = (from C in cities.Collection()
-            //                  where C.Name_He.ToLower().StartsWith(cityPrefix.ToLower())
-            //                  select new { C.Name_He });
-            //}
-
-            Cities = (from C in cities.Collection()
-                      where C.Name_He.ToLower().StartsWith(cityPrefix.ToLower())
-                      select new { C.Name_He });
-
-            return Json(Cities, JsonRequestBehavior.AllowGet);
+            return Json(AdreessType, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult About()
