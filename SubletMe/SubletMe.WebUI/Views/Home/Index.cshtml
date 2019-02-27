@@ -41,7 +41,7 @@
     </div>
 }
 
-@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
     <div class="row">
