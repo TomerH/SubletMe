@@ -17,8 +17,8 @@ namespace SubletMe.WebUI.Controllers
 
         public HomeController(IRepository<City> cityContext, IRepository<Street> streetContext)
         {
-            cities = cityContext;
-            streets = streetContext;
+            this.cities = cityContext;
+            this.streets = streetContext;
         }
 
         public ActionResult Index()
@@ -27,23 +27,23 @@ namespace SubletMe.WebUI.Controllers
         }
 
         [HttpPost]
-        public JsonResult Index(string cityPrefix, string streetPrefix = null)
+        public JsonResult Index(string prefix, bool isStreet, string cityPrefix = null, string streetPrefix = null)
         {
             dynamic AdreessType;
 
-            if (streetPrefix != null)
+            if (isStreet)
             {
                 string CityChosen = cityPrefix;
                 AdreessType = (from C in streets.Collection()
-                          where C.Name_He.ToLower().StartsWith(streetPrefix.ToLower())
-                          && C.CityName.Equals(CityChosen)
-                          select new { C.Name_He });
+                               where C.Name_He.ToLower().StartsWith(prefix.ToLower())
+                               && C.CityName.Equals(CityChosen)
+                               select new { C.Name_He });
             }
             else
             {
                 AdreessType = (from C in cities.Collection()
-                          where C.Name_He.ToLower().StartsWith(cityPrefix.ToLower())
-                          select new { C.Name_He });
+                               where C.Name_He.ToLower().StartsWith(prefix.ToLower())
+                               select new { C.Name_He });
             }
 
             return Json(AdreessType, JsonRequestBehavior.AllowGet);

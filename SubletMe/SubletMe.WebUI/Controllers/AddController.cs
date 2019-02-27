@@ -14,10 +14,16 @@ namespace SubletMe.WebUI.Controllers
         IRepository<Apartment> apartments;
         IRepository<Room> rooms;
 
-        public AddController(IRepository<Apartment> apartments, IRepository<Room> rooms)
+        IRepository<City> cities;
+        IRepository<Street> streets;
+
+        public AddController(IRepository<Apartment> apartments, IRepository<Room> rooms, IRepository<City> cityContext, IRepository<Street> streetContext)
         {
             this.apartments = apartments;
             this.rooms = rooms;
+
+            this.cities = cityContext;
+            this.streets = streetContext;
         }
 
         public ActionResult Index()
@@ -43,22 +49,47 @@ namespace SubletMe.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddApartment(Apartment Apartment)
+        public ActionResult AddApartment(Apartment Apartment, string Create, string prefix, bool isStreet = false, string cityPrefix = null, string streetPrefix = null)
         {
-            if(!ModelState.IsValid)
+            if (!string.IsNullOrEmpty(Create))
             {
-                return View(Apartment);
+                if (!ModelState.IsValid)
+                {
+                    return View(Apartment);
+                }
+                else
+                {
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        var Id = User.Identity.GetUserId();
+                        Apartment.UserId = Id;
+                    }
+                    Apartment.State = "ישראל";
+                    apartments.Insert(Apartment);
+                    apartments.Commit();
+                    return RedirectToAction("Index");
+                }
             }
             else
             {
-                if (User.Identity.IsAuthenticated)
+                dynamic AdreessType;
+
+                if (isStreet)
                 {
-                    var Id = User.Identity.GetUserId();
-                    Apartment.UserId = Id;
+                    string CityChosen = cityPrefix;
+                    AdreessType = (from C in streets.Collection()
+                                   where C.Name_He.ToLower().StartsWith(prefix.ToLower())
+                                   && C.CityName.Equals(CityChosen)
+                                   select new { C.Name_He });
                 }
-                apartments.Insert(Apartment);
-                apartments.Commit();
-                return RedirectToAction("Index");
+                else
+                {
+                    AdreessType = (from C in cities.Collection()
+                                   where C.Name_He.ToLower().StartsWith(prefix.ToLower())
+                                   select new { C.Name_He });
+                }
+
+                return Json(AdreessType);
             }
         }
 
@@ -68,22 +99,47 @@ namespace SubletMe.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddRoom(Room Room)
+        public ActionResult AddRoom(Room Room, string Create, string prefix, bool isStreet = false, string cityPrefix = null, string streetPrefix = null)
         {
-            if (!ModelState.IsValid)
+            if (!string.IsNullOrEmpty(Create))
             {
-                return View(Room);
+                if (!ModelState.IsValid)
+                {
+                    return View(Room);
+                }
+                else
+                {
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        var Id = User.Identity.GetUserId();
+                        Room.UserId = Id;
+                    }
+                    Room.State = "ישראל";
+                    rooms.Insert(Room);
+                    rooms.Commit();
+                    return RedirectToAction("Index");
+                }
             }
             else
             {
-                if (User.Identity.IsAuthenticated)
+                dynamic AdreessType;
+
+                if (isStreet)
                 {
-                    var Id = User.Identity.GetUserId();
-                    Room.UserId = Id;
+                    string CityChosen = cityPrefix;
+                    AdreessType = (from C in streets.Collection()
+                                   where C.Name_He.ToLower().StartsWith(prefix.ToLower())
+                                   && C.CityName.Equals(CityChosen)
+                                   select new { C.Name_He });
                 }
-                rooms.Insert(Room);
-                rooms.Commit();
-                return RedirectToAction("Index");
+                else
+                {
+                    AdreessType = (from C in cities.Collection()
+                                   where C.Name_He.ToLower().StartsWith(prefix.ToLower())
+                                   select new { C.Name_He });
+                }
+
+                return Json(AdreessType);
             }
         }
     }

@@ -1,15 +1,36 @@
 ﻿@model SubletMe.Core.Models.Room
+@*@model SubletMe.Core.ViewModels.AddressViewModel*@
 
 @{
     ViewBag.Title = "AddRoom";
 }
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+<script src="~/Content/AutoComplete.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".noResult").hide();
+
+        AutoComplete("#City", "/Add/AddRoom", ".cityNoResult", "#Street", false);
+        AutoComplete("#Street", "/Add/AddRoom", ".cityNoResult", "#Street", true);
+
+        $('#City').bind('input', function () {
+            $("#Street").prop("disabled", true);
+            $("#Street").val("");
+        });
+    })
+</script>
+
 <h2>AddRoom</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("AddRoom", "Add", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Room</h4>
         <hr />
@@ -17,23 +38,28 @@
         <div class="form-group">
             @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+                ישראל
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.City, "CityName", "City", new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group noResult cityNoResult">
+            <div class="col-md-12">
+                <p> לא נמצאו תוצאות</p>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
                 @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -104,7 +130,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" name="Create" class="btn btn-default" />
             </div>
         </div>
     </div>

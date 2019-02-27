@@ -4,99 +4,20 @@
     ViewBag.Title = "Home Page";
 }
 
-<style>
+@*<style>
     .ui-autocomplete li.ui-menu-item, .ui-autocomplete li.ui-menu-item:hover {
         background: #fff;
     }
-</style>
+</style>*@
+
+<script src="~/Content/AutoComplete.js"></script>
 
 <script type="text/javascript">
     $(document).ready(function () {
         $(".noResult").hide();
 
-        $("#City").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: "/Home/Index",
-                    type: "POST",
-                    dataType: "json",
-                    data: { cityPrefix: request.term },
-                    success: function (data) {
-                        if (!data.length) {
-                            //var result = [
-                            //    {
-                            //        label: "לא נמצו תוצאות",
-                            //        value: ""
-                            //    }
-                            //];
-                            //response(result);
-                            $(".cityNoResult").show();
-                            response();
-                        } else {
-                            response($.map(data, function (item) {
-                                $(".cityNoResult").hide();
-                                return { label: item.Name_He, value: item.Name_He };
-                            }))
-                        }
-                    }, error: function () {
-                        alert('something went wrong !');
-                    }
-                })
-            },
-            select: function (event, ui) {
-                if (ui.item.label === "לא נמצו תוצאות") {
-                    $("li").css("pointer-events", "none");
-                } else {
-                    $("#Street").prop("disabled", false);
-                }
-            },
-            focus: function (event, ui) {
-                if (ui.item.label === "לא נמצו תוצאות") {
-                    $("li").css("pointer-events", "none");
-                }
-            }
-        });
-
-        $("#Street").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: "/Home/Index",
-                    type: "POST",
-                    dataType: "json",
-                    data: {
-                        streetPrefix: request.term,
-                        cityPrefix: $("#City").val()
-                    },
-                    success: function (data) {
-                        if (!data.length) {
-                            var result = [
-                                {
-                                    label: "לא נמצו תוצאות",
-                                    value: ""
-                                }
-                            ];
-                            response(result);
-                        } else {
-                            response($.map(data, function (item) {
-                                return { label: item.Name_He, value: item.Name_He };
-                            }))
-                        }
-                    }, error: function () {
-                        alert('something went wrong !');
-                    }
-                })
-            },
-            select: function (event, ui) {
-                if (ui.item.label === "לא נמצו תוצאות") {
-                    $("li").css("pointer-events", "none");
-                }
-            },
-            focus: function (event, ui) {
-                if (ui.item.label === "לא נמצו תוצאות") {
-                    $("li").css("pointer-events", "none");
-                }
-            }
-        });
+        AutoComplete("#City", "/Home/Index", ".cityNoResult", "#Street", false);
+        AutoComplete("#Street", "/Home/Index", ".cityNoResult", "#Street", true);
 
         $('#City').bind('input', function () {
             $("#Street").prop("disabled", true);
