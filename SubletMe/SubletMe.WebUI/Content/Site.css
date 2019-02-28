@@ -16,17 +16,6 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-/*input,
-select,
-textarea {
-    max-width: 280px;
-}*/
-
-/*.navbar-changes {
-    height: 50px;
-}*/
-
 .navbar {
     border-radius: 0;
     margin-bottom: 0;

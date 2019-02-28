@@ -27,7 +27,7 @@ namespace SubletMe.WebUI.Controllers
         }
 
         [HttpPost]
-        public JsonResult Index(string prefix, bool isStreet, string cityPrefix = null, string streetPrefix = null)
+        public JsonResult Index(string prefix, bool isStreet = false, string cityPrefix = null, string streetPrefix = null)
         {
             dynamic AdreessType;
 

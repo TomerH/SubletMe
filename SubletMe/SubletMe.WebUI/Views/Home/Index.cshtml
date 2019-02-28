@@ -4,12 +4,6 @@
     ViewBag.Title = "Home Page";
 }
 
-@*<style>
-    .ui-autocomplete li.ui-menu-item, .ui-autocomplete li.ui-menu-item:hover {
-        background: #fff;
-    }
-</style>*@
-
 <script src="~/Content/AutoComplete.js"></script>
 
 <script type="text/javascript">
@@ -17,11 +11,12 @@
         $(".noResult").hide();
 
         AutoComplete("#City", "/Home/Index", ".cityNoResult", "#Street", false);
-        AutoComplete("#Street", "/Home/Index", ".cityNoResult", "#Street", true);
+        AutoComplete("#Street", "/Home/Index", ".streetNoResult", "#Street", true);
 
         $('#City').bind('input', function () {
             $("#Street").prop("disabled", true);
             $("#Street").val("");
+            $(".streetNoResult").hide();
         });
     })
 </script>
@@ -41,7 +36,7 @@
     </div>
 }
 
-@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
 {
     @Html.AntiForgeryToken()
     <div class="row">
@@ -55,15 +50,23 @@
     <div class="row noResult cityNoResult">
         <div class="form-group">
             <div class="col-md-12">
-                <p> לא נמצאו תוצאות</p>
+                <p>לא נמצאו תוצאות</p>
             </div>
         </div>
     </div>
 
-    <div class="row" style="margin-top: 20px;">
+    <div class="row">
         <div class="form-group">
             <div class="col-md-12">
                 @Html.EditorFor(model => model.Streets.Name_He, "StreetName", "Street", new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+            </div>
+        </div>
+    </div>
+
+    <div class="row noResult streetNoResult">
+        <div class="form-group">
+            <div class="col-md-12">
+                <p>לא נמצאו תוצאות</p>
             </div>
         </div>
     </div>
