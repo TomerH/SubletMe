@@ -26,5 +26,6 @@ namespace SubletMe.Core.Models
         public string Floors { get; set; }
         [Range(0, 100)]
         public string Rooms { get; set; }
+        public bool HotList { get; set; }
     }
 }

@@ -24,5 +24,6 @@ namespace SubletMe.Core.Models
 
         [Range(0, 100)]
         public string Roommates { get; set; }
+        public bool HotList { get; set; }
     }
 }

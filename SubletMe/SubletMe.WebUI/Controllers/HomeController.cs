@@ -14,16 +14,79 @@ namespace SubletMe.WebUI.Controllers
     {
         IRepository<City> cities;
         IRepository<Street> streets;
+        IRepository<Apartment> apartments;
+        IRepository<Room> rooms;
 
-        public HomeController(IRepository<City> cityContext, IRepository<Street> streetContext)
+        public HomeController(IRepository<City> cityContext, IRepository<Street> streetContext, IRepository<Apartment> apartmentContext, IRepository<Room> roomContext)
         {
             this.cities = cityContext;
             this.streets = streetContext;
+            this.apartments = apartmentContext;
+            this.rooms = roomContext;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string City = null, string Street = null)
         {
-            return View();
+            if(City == null)
+            {
+                List<Apartment> apartmentsList;
+                List<Room> roomsList;
+
+                apartmentsList = apartments.Collection().Where(A => A.HotList == true).ToList();
+                roomsList = rooms.Collection().Where(A => A.HotList == true).ToList();
+
+                SubletItemViewModel subletItemModel = new SubletItemViewModel();
+
+                subletItemModel.Apartments = apartmentsList;
+                subletItemModel.Rooms = roomsList;
+
+                TotalViewModel totalViewModel = new TotalViewModel();
+
+                totalViewModel.SubletItemViewModels = subletItemModel;
+
+                return View(totalViewModel);
+            }
+            else
+            {
+                if(Street == null || Street == "")
+                {
+                    List<Apartment> apartmentsList;
+                    List<Room> roomsList;
+
+                    apartmentsList = apartments.Collection().Where(A => A.City == City).ToList();
+                    roomsList = rooms.Collection().Where(A => A.City == City).ToList();
+
+                    SubletItemViewModel subletItemModel = new SubletItemViewModel();
+
+                    subletItemModel.Apartments = apartmentsList;
+                    subletItemModel.Rooms = roomsList;
+
+                    TotalViewModel totalViewModel = new TotalViewModel();
+
+                    totalViewModel.SubletItemViewModels = subletItemModel;
+
+                    return View(totalViewModel);
+                }
+                else
+                {
+                    List<Apartment> apartmentsList;
+                    List<Room> roomsList;
+
+                    apartmentsList = apartments.Collection().Where(A => A.City == City && A.Street == Street).ToList();
+                    roomsList = rooms.Collection().Where(A => A.City == City && A.Street == Street).ToList();
+
+                    SubletItemViewModel subletItemModel = new SubletItemViewModel();
+
+                    subletItemModel.Apartments = apartmentsList;
+                    subletItemModel.Rooms = roomsList;
+
+                    TotalViewModel totalViewModel = new TotalViewModel();
+
+                    totalViewModel.SubletItemViewModels = subletItemModel;
+
+                    return View(totalViewModel);
+                }
+            }
         }
 
         [HttpPost]
