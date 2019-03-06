@@ -29,6 +29,8 @@ namespace SubletMe.WebUI.Controllers
         {
             if(City == null)
             {
+                ViewBag.header = "הלוח החם";
+
                 List<Apartment> apartmentsList;
                 List<Room> roomsList;
 
@@ -48,13 +50,21 @@ namespace SubletMe.WebUI.Controllers
             }
             else
             {
-                if(Street == null || Street == "")
+                ViewBag.header = "תוצאות החיפוש:";
+                if (Street == null || Street == "")
                 {
                     List<Apartment> apartmentsList;
                     List<Room> roomsList;
 
                     apartmentsList = apartments.Collection().Where(A => A.City == City).ToList();
                     roomsList = rooms.Collection().Where(A => A.City == City).ToList();
+
+                    if(!apartmentsList.Any() && !roomsList.Any())
+                    {
+                        ViewBag.header =
+                            "לצערנו לא הצלחנו למצוא לך את מה שאתה מחפש :( " +
+                            "אך אתה מוזמן להוסיף בקשה ואנחנו נדאג ליידע אותך במידה ונמצא בישבילך את מה שאתה מחפש";
+                    }
 
                     SubletItemViewModel subletItemModel = new SubletItemViewModel();
 
@@ -74,6 +84,11 @@ namespace SubletMe.WebUI.Controllers
 
                     apartmentsList = apartments.Collection().Where(A => A.City == City && A.Street == Street).ToList();
                     roomsList = rooms.Collection().Where(A => A.City == City && A.Street == Street).ToList();
+
+                    if (!apartmentsList.Any() && !roomsList.Any())
+                    {
+                        ViewBag.header = "לצערנו לא הצלחנו למצוא לך את מה שאתה מחפש :(";
+                    }
 
                     SubletItemViewModel subletItemModel = new SubletItemViewModel();
 
