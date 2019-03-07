@@ -14,6 +14,7 @@ namespace SubletMe.WebUI.Controllers
     {
         IRepository<City> cities;
         IRepository<Street> streets;
+
         IRepository<Apartment> apartments;
         IRepository<Room> rooms;
 
@@ -21,6 +22,7 @@ namespace SubletMe.WebUI.Controllers
         {
             this.cities = cityContext;
             this.streets = streetContext;
+
             this.apartments = apartmentContext;
             this.rooms = roomContext;
         }

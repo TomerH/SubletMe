@@ -18,14 +18,16 @@ namespace SubletMe.WebUI.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        //private readonly UserManager<ApplicationUser> _userManager;
+
         public AccountController()
         {
         }
 
-        //public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        //public AccountController(ApplicationUserManager userManager)
         //{
         //    UserManager = userManager;
-        //    SignInManager = signInManager;
+        //    //SignInManager = signInManager;
         //}
 
         public ApplicationSignInManager SignInManager

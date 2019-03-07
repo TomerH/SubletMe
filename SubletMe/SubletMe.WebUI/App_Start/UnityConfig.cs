@@ -1,6 +1,9 @@
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using SubletMe.Core.Contracts;
 using SubletMe.Core.Models;
 using SubletMe.DataAccess.SQL;
+using SubletMe.WebUI.Models;
 using System;
 using Unity;
 

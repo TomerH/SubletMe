@@ -48,6 +48,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationUser.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="Migrations\201902200703190_Initialize.cs" />
     <Compile Include="Migrations\201902200703190_Initialize.Designer.cs">
@@ -68,6 +69,10 @@
     <Compile Include="Migrations\201903041225551_hotlist.cs" />
     <Compile Include="Migrations\201903041225551_hotlist.Designer.cs">
       <DependentUpon>201903041225551_hotlist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903071311120_userInfo.cs" />
+    <Compile Include="Migrations\201903071311120_userInfo.Designer.cs">
+      <DependentUpon>201903071311120_userInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,6 +103,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903041225551_hotlist.resx">
       <DependentUpon>201903041225551_hotlist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903071311120_userInfo.resx">
+      <DependentUpon>201903071311120_userInfo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -198,6 +198,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902210548005_InitialCreate.cs" />
+    <Compile Include="Migrations\201902210548005_InitialCreate.Designer.cs">
+      <DependentUpon>201902210548005_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903071322579_userInfo.cs" />
+    <Compile Include="Migrations\201903071322579_userInfo.Designer.cs">
+      <DependentUpon>201903071322579_userInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -293,6 +302,18 @@
       <Project>{6F982A0D-09F4-4733-AA21-C040573F63EA}</Project>
       <Name>SubletMe.DataAccess.SQL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SubletMe.Services\SubletMe.Services.csproj">
+      <Project>{5457EC85-2CCF-494E-AB7A-8BF4042D3FDB}</Project>
+      <Name>SubletMe.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201902210548005_InitialCreate.resx">
+      <DependentUpon>201902210548005_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903071322579_userInfo.resx">
+      <DependentUpon>201903071322579_userInfo.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

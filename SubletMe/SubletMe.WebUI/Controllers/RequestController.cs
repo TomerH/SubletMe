@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNet.Identity;
 using SubletMe.Core.Contracts;
 using SubletMe.Core.Models;
+using SubletMe.Services;
+using SubletMe.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +15,20 @@ namespace SubletMe.WebUI.Controllers
     {
         IRepository<Request> requests;
 
+        IRepository<Apartment> apartments;
+        IRepository<Room> rooms;
+
         IRepository<City> cities;
         IRepository<Street> streets;
 
-        public RequestController(IRepository<Request> requests, IRepository<City> cityContext, IRepository<Street> streetContext)
+        Mailer mailer = new Mailer();
+
+        public RequestController(IRepository<Request> requestContext, IRepository<City> cityContext, IRepository<Street> streetContext, IRepository<Apartment> apartmentContext, IRepository<Room> roomContext)
         {
-            this.requests = requests;
+            this.requests = requestContext;
+
+            this.apartments = apartmentContext;
+            this.rooms = roomContext;
 
             this.cities = cityContext;
             this.streets = streetContext;
@@ -48,27 +58,6 @@ namespace SubletMe.WebUI.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult RequestApartment(Request Request)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(Request);
-        //    }
-        //    else
-        //    {
-        //        if (User.Identity.IsAuthenticated)
-        //        {
-        //            var Id = User.Identity.GetUserId();
-        //            Request.UserId = Id;
-        //        }
-        //        Request.Kind = "Apartment";
-        //        requests.Insert(Request);
-        //        requests.Commit();
-        //        return RedirectToAction("Index");
-        //    }
-        //}
-
         [HttpPost]
         public ActionResult RequestApartment(Request Request, string Create, string prefix, bool isStreet = false, string cityPrefix = null, string streetPrefix = null)
         {
@@ -80,15 +69,25 @@ namespace SubletMe.WebUI.Controllers
                 }
                 else
                 {
+                    var Id = "";
+
                     if (User.Identity.IsAuthenticated)
                     {
-                        var Id = User.Identity.GetUserId();
+                        Id = User.Identity.GetUserId();
                         Request.UserId = Id;
                     }
+
                     Request.State = "ישראל";
                     Request.Kind = "Apartment";
+
+                    List<Apartment> MatchedApartmens = apartments.Collection().Where(A => A.City == Request.City).ToList();
+                    var context = new ApplicationDbContext();
+
+                    mailer.SendMatch(context, MatchedApartmens, Id, "דירה");
+
                     requests.Insert(Request);
                     requests.Commit();
+
                     return RedirectToAction("Index");
                 }
             }
@@ -120,27 +119,6 @@ namespace SubletMe.WebUI.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //public ActionResult RequestRoom(Request Request)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return View(Request);
-        //    }
-        //    else
-        //    {
-        //        if (User.Identity.IsAuthenticated)
-        //        {
-        //            var Id = User.Identity.GetUserId();
-        //            Request.UserId = Id;
-        //        }
-        //        Request.Kind = "Room";
-        //        requests.Insert(Request);
-        //        requests.Commit();
-        //        return RedirectToAction("Index");
-        //    }
-        //}
-
         [HttpPost]
         public ActionResult RequestRoom(Request Request, string Create, string prefix, bool isStreet = false, string cityPrefix = null, string streetPrefix = null)
         {
@@ -152,13 +130,22 @@ namespace SubletMe.WebUI.Controllers
                 }
                 else
                 {
+                    var Id = "";
+
                     if (User.Identity.IsAuthenticated)
                     {
-                        var Id = User.Identity.GetUserId();
+                        Id = User.Identity.GetUserId();
                         Request.UserId = Id;
                     }
+
                     Request.State = "ישראל";
                     Request.Kind = "Room";
+
+                    List<Room> MatchedRooms = rooms.Collection().Where(A => A.City == Request.City).ToList();
+                    var context = new ApplicationDbContext();
+
+                    mailer.SendMatch(context, MatchedRooms, Id, "חדר");
+
                     requests.Insert(Request);
                     requests.Commit();
                     return RedirectToAction("Index");
