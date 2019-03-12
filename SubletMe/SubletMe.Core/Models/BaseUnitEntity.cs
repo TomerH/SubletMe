@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SubletMe.Core.Models
 {
-    public class BaseUnitEntity
+    public abstract class BaseUnitEntity
     {
         public string Id { get; set; }
         public DateTime CreatedAt { get; set; }
